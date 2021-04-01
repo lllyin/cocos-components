@@ -15,6 +15,7 @@ import {
   UITransform,
   math,
   CCInteger,
+  Overflow,
 } from 'cc';
 const { ccclass, property } = _decorator;
 
@@ -69,7 +70,7 @@ export class Badge extends Component {
     const badgeNode = this.createBadge();
 
     this.node.addChild(badgeNode);
-    console.log('director:', director);
+    console.log('badgeNode:', badgeNode);
   }
 
   // 设置位置
@@ -77,14 +78,12 @@ export class Badge extends Component {
     const parentSize = this.node.getComponent(UITransform)?.contentSize as math.Size;
     const badgeSize = this.badgeNode.getComponent(UITransform)?.contentSize as math.Size;
 
-    console.log('setPosition:', parentSize, badgeSize);
     switch (position) {
       case Position.TOP_LEFT: {
         const x = -parentSize.width / 2;
         const y = parentSize.height / 2;
 
         this.badgeNode.setPosition(new Vec3(x, y, 0));
-        console.log('position', this.badgeNode, position, [x, y]);
         break;
       }
       case Position.TOP_RIGHT: {
@@ -92,7 +91,6 @@ export class Badge extends Component {
         const y = parentSize.height / 2;
 
         this.badgeNode.setPosition(new Vec3(x, y, 0));
-        console.log('position', this.badgeNode, position, [x, y]);
         break;
       }
     }
@@ -128,7 +126,7 @@ export class Badge extends Component {
     // 设置背景
     resources.load(defaultSprite, SpriteFrame, (err, spriteFrame) => {
       if (err) {
-        console.log('加载资源报错:', err);
+        console.warn('加载资源报错:', err);
         return;
       }
       const _sprite = backgroundNode.addComponent(Sprite);
@@ -138,17 +136,17 @@ export class Badge extends Component {
       _sprite.spriteFrame = spriteFrame;
 
       backgroundNode.getComponent(UITransform)?.setContentSize(this.width, this.height);
-
-      console.log('spriteFrame:', backgroundNode.getComponent(UITransform));
     });
 
     // 设置label信息
     const _label = this.labelNode.addComponent(Label);
-
     _label.getComponent(UITransform)?.setContentSize(this.width, this.height);
     _label.string = this.text;
     _label.color = this.textColor;
     _label.fontSize = 14;
+    _label.lineHeight = 0;
+    _label.overflow = Overflow.SHRINK;
+    _label.enableWrapText = false;
 
     // 添加节点
     this.badgeNode.addChild(backgroundNode);
