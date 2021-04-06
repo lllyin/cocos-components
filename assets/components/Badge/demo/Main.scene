@@ -32,7 +32,7 @@
     "_globals": {
       "__id__": 62
     },
-    "_id": "b25d04bf-013e-46a9-b54f-24c23c8aa88a"
+    "_id": "40ff27ea-ce67-44e8-b405-71e096e6be69"
   },
   {
     "__type__": "cc.Node",
@@ -313,7 +313,7 @@
     "_priority": 1073741824,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 331.8435754189944,
+    "_orthoHeight": 320,
     "_near": 1,
     "_far": 2000,
     "_color": {

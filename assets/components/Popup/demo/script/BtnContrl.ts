@@ -1,7 +1,7 @@
 import { _decorator, Component, Prefab } from 'cc';
 
-import { PopupManager } from '../../../components/Popup/Manager/PopupManager';
-import { Toast, Gravity } from '../../../components/Toast/Toast';
+import { PopupManager } from '../../../Popup/Manager/PopupManager';
+import { Toast, Gravity } from '../../../Toast/Toast';
 
 const { ccclass, property } = _decorator;
 
