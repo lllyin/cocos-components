@@ -8,6 +8,8 @@ interface Options {
 
 export { Gravity } from './BaseToast';
 
+let toasts: BaseToast[] = [];
+
 export class Toast {
   static readonly LENGTH_SHORT = BaseToast.LENGTH_SHORT;
   static readonly LENGTH_LONG = BaseToast.LENGTH_LONG;
@@ -31,14 +33,24 @@ export class Toast {
       ...options,
     };
 
-    return BaseToast.makeText(message, duration, null)
+    const t = BaseToast.makeText(message, duration, null)
       .setGravity(mergeOpts.gravity)
       .setTextSize(mergeOpts.textSize)
-      .setLineheight(mergeOpts.lineHeight)
-      .show();
+      .setLineheight(mergeOpts.lineHeight);
+
+    // 解决第一次toast没有背景色的问题
+    toasts.push(t);
+    setTimeout(() => {
+      toasts.forEach((t) => !t.isDestroy && t.show());
+    }, 0);
+
+    return t;
   }
 
-  static hide() {}
-
-  static hideAll() {}
+  // 隐藏所有toast
+  static hideAll() {
+    setTimeout(() => {
+      toasts = [];
+    }, 0);
+  }
 }

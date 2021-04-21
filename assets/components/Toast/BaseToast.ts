@@ -41,6 +41,9 @@ export class BaseToast {
   static readonly LENGTH_SHORT: number = 2; // 短时间吐司
   static readonly LENGTH_LONG: number = 3.5; // 长时间吐司
 
+  // toast是否销毁
+  public isDestroy: boolean = false;
+
   private static pNode: Node | null = null;
   private bgNode: Node;
   private textNode: Node;
@@ -108,6 +111,7 @@ export class BaseToast {
   show() {
     this.setText(this.text).setTextSize(this.textSize).setOverFlow();
     this.bgNode.active = true;
+    this.isDestroy = false;
     let uiOpacity = this.bgNode.getComponent(UIOpacity);
 
     if (null == uiOpacity) {
@@ -119,6 +123,7 @@ export class BaseToast {
       .call(() => {
         this.bgNode.active = false;
         this.bgNode.destroy();
+        this.isDestroy = true;
       })
       .start();
   }
