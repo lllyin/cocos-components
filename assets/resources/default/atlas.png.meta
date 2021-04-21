@@ -52,7 +52,7 @@
         "isUuid": true,
         "imageUuidOrDatabaseUri": "0040ef84-ea1a-47a1-ab86-27420ea7619b"
       },
-      "ver": "1.0.20",
+      "ver": "1.0.21",
       "imported": true,
       "files": [
         ".json"

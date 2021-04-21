@@ -1,9 +1,11 @@
 {
   "ver": "4.0.22",
   "importer": "javascript",
-  "imported": false,
-  "uuid": "ab78aeda-4fc2-46a5-bf5f-d412aa335f94",
+  "imported": true,
+  "uuid": "78837852-e5ab-4df0-b8f8-37da7d0aa74e",
   "files": [],
   "subMetas": {},
-  "userData": {}
+  "userData": {
+    "simulateGlobals": []
+  }
 }

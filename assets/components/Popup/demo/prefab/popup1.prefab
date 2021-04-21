@@ -583,7 +583,7 @@
       "__id__": 1
     },
     "component": "",
-    "_componentId": "431f7Xe4qxN8KRa31nTDyTW",
+    "_componentId": "f58f8I+XmdBCpiB3gjCclle",
     "handler": "hideUI",
     "customEventData": ""
   },
@@ -742,7 +742,7 @@
     "fileId": "eaPOo3QrBMV6FzsJGIygTC"
   },
   {
-    "__type__": "431f7Xe4qxN8KRa31nTDyTW",
+    "__type__": "f58f8I+XmdBCpiB3gjCclle",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -759,7 +759,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "b4yxNpRmpF6pbUubZeXfOt"
+    "fileId": "87SO9ZL95GuqWHcNI8YMer"
   },
   {
     "__type__": "cc.PrefabInfo",

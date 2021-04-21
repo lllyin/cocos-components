@@ -17,7 +17,7 @@ import {
   CCInteger,
   Overflow,
 } from 'cc';
-const { ccclass, property } = _decorator;
+const { ccclass, property, menu } = _decorator;
 
 import { RoundRectMask } from '../RoundRectMask/RoundRectMask';
 
@@ -29,10 +29,10 @@ export enum Position {
   TOP_RIGHT = 1,
 }
 
-const url = 'default/atlas/spriteFrame';
 const defaultSprite = 'default/default_sprite_splash/spriteFrame';
 
 @ccclass('Badge')
+@menu('components/Badge')
 export class Badge extends Component {
   @property({ type: CCString, tooltip: '徽标默认内容' })
   propText: string = '6';

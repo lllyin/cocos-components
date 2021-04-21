@@ -5,7 +5,7 @@ import { Toast, Gravity } from '../../Toast';
 
 const { ccclass, property } = _decorator;
 
-@ccclass('BtnContrl')
+@ccclass('BtnContrl2')
 export class BtnContrl extends Component {
   @property(Prefab)
   popupPrefab: Prefab = null!;

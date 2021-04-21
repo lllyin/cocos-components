@@ -5,9 +5,20 @@
  * @description 弹框UI的父类
  *
  */
-import { _decorator, Component, CCBoolean, Enum, v3, tween, BlockInputEvents, Tween, UIOpacity, Node } from 'cc';
-import { PopupManager } from '../Manager/PopupManager';
-const { ccclass, property } = _decorator;
+import {
+  _decorator,
+  Component,
+  CCBoolean,
+  Enum,
+  v3,
+  tween,
+  BlockInputEvents,
+  Tween,
+  UIOpacity,
+  Node,
+} from "cc";
+import { PopupManager } from "../Manager/PopupManager";
+const { ccclass, property, menu } = _decorator;
 
 /**
  * 弹框的动画
@@ -28,7 +39,8 @@ const scaleTween: Tween<Node> = tween()
  */
 const fadeTween: Tween<UIOpacity> = tween().to(0.25, { opacity: 255 });
 
-@ccclass('PopupBase')
+@ccclass("PopupBase")
+@menu("components/Popup/PopupBase")
 export class PopupBase extends Component {
   /**
    * 是否设置点击拦截
@@ -53,7 +65,7 @@ export class PopupBase extends Component {
   })
   animType: AnimType = AnimType.SCALE;
 
-  private _popupName: string = '';
+  private _popupName: string = "";
   /**
    * 弹框的名字 如果没有自定义命名，则名字为prefab的名字
    */
@@ -62,7 +74,6 @@ export class PopupBase extends Component {
   }
 
   onLoad() {
-    console.log('popupbase onload', this.node);
     if (this.blockInput) {
       this.node.addComponent(BlockInputEvents);
     }
@@ -137,6 +148,7 @@ export class PopupBase extends Component {
    */
   hideUI() {
     PopupManager.instance.hide(this.popupName);
+    this.node.emit("hide");
   }
 
   /**
@@ -144,5 +156,6 @@ export class PopupBase extends Component {
    */
   removeUI() {
     PopupManager.instance.remove(this.popupName);
+    this.node.emit("remove");
   }
 }

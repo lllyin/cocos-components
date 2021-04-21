@@ -1,7 +1,8 @@
 import { _decorator, Component, Vec3, Button, tween, SystemEventType, EventTouch } from 'cc';
-const { ccclass, property } = _decorator;
+const { ccclass, property, menu } = _decorator;
 
 @ccclass
+@menu('components/helpers/ButtonScaler')
 export class ButtonScaler extends Component {
   @property
   public scaleTo = new Vec3(1.2, 1.2, 1.2);

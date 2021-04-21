@@ -5,7 +5,7 @@ const { ccclass, property, executeInEditMode, disallowMultiple, requireComponent
 @executeInEditMode(true)
 @disallowMultiple(true)
 @requireComponent(Mask)
-@menu('渲染组件/圆角遮罩')
+@menu('components/RoundRectMask')
 export class RoundRectMask extends Component {
   // 圆角半径
   @property({ type: CCFloat, tooltip: '圆角半径:\n0-1之间为最小边长比例值, \n>1为具体像素值' })
