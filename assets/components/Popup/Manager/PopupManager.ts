@@ -6,8 +6,9 @@
  *
  */
 
-import { Widget } from "cc";
-import {
+ import {
+  Mask,
+  Widget,
   BlockInputEvents,
   Canvas,
   director,
@@ -17,11 +18,19 @@ import {
   Node,
   Prefab,
   UITransform,
+  color,
+  Sprite,
+  SpriteFrame,
+  Texture2D,
+  ImageAsset,
   v3,
   view,
+  Color,
 } from "cc";
 import { PopupBase } from "../Base/PopupBase";
 import { CCUtil } from "../util/CCUtil";
+
+const { fromHEX } = Color;
 
 // 弹窗显示类型
 export enum ShowType {
@@ -41,8 +50,8 @@ export class PopupManager {
     return this._instance;
   }
 
-  private popupNode: Node | null = null;
   public blockInputNode: Node | null = null;
+  private popupNode: Node | null = null;
   private popups: Array<string>;
   private nodes: Map<string, Node>;
   private paths: Map<string, string>;
@@ -67,6 +76,7 @@ export class PopupManager {
   // 获取顶层容器节点
   getRoot() {
     const canvas = director.getScene()?.getComponentInChildren(Canvas);
+
     if (canvas) {
       return canvas.node;
     } else {
@@ -231,6 +241,7 @@ export class PopupManager {
           break;
         }
         case ShowType.keep: {
+          this.popups.push(name);
           break;
         }
         case ShowType.replace:
@@ -311,6 +322,7 @@ export class PopupManager {
    */
   hideAll() {
     this._hideAll();
+    this.blockInputNode!.active = false;
     this.popups.length = 0;
   }
 
@@ -424,23 +436,56 @@ export class PopupManager {
   private setBlockInput() {
     const blockInputNode = new Node("BlockInput");
     const uiTranform = blockInputNode.addComponent(UITransform);
-    const widgt = blockInputNode.addComponent(Widget);
     const size = view.getVisibleSize();
 
+    uiTranform.setContentSize(size);
+
+    // 添加一个mask
+    blockInputNode.addComponent(Mask).type = Mask.Type.RECT;
+
+    // 添加背景
+    const backgroundNode = this.genBackgroundNode(
+      fromHEX(new Color(), "#000000B5")
+    );
+    blockInputNode.addChild(backgroundNode);
+
+    // 禁用点击
     blockInputNode.addComponent(BlockInputEvents);
     blockInputNode.layer = Layers.Enum.UI_2D;
     blockInputNode.active = false;
 
-    widgt.left = 0;
-    widgt.right = 0;
-    widgt.top = 0;
-    widgt.bottom = 0;
-
-    uiTranform.setContentSize(size);
     // uiTranform.priority = 99999;
-
+    uiTranform.setContentSize(size);
     this.getRoot()?.addChild(blockInputNode);
 
     return blockInputNode;
+  }
+
+  genBackgroundNode(_color: Color) {
+    const bgNode = new Node("Background");
+    const widget = bgNode.addComponent(Widget)
+    const uiTransform = bgNode.addComponent(UITransform)
+    const sprite = bgNode.addComponent(Sprite);
+    const imageObj = new Image();
+
+    bgNode.layer = Layers.Enum.UI_2D;
+
+    sprite.type = Sprite.Type.SIMPLE;
+    imageObj.src =
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACAQMAAABIeJ9nAAAAA1BMVEX///+nxBvIAAAACklEQVQI12MAAgAABAABINItbwAAAABJRU5ErkJggg==";
+    let textureObj = new Texture2D();
+    textureObj.image = new ImageAsset(imageObj);
+    let sf = new SpriteFrame();
+    sf.texture = textureObj;
+    sprite.spriteFrame = sf;
+    sprite.color = _color;
+
+    widget.left = 0;
+    widget.right = 0;
+    widget.top = 0;
+    widget.bottom = 0;
+
+    uiTransform.setContentSize(view.getVisibleSize())
+    return bgNode;
   }
 }
